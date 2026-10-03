@@ -912,7 +912,7 @@ impl TcpSocket {
         self.inner.listen(backlog as i32)?;
         #[cfg(target_os = "toyos")]
         {
-            // On ToyOS, drop socket2 state and re-bind via mio (which uses netd).
+            // On ToyOS, drop socket2 state and re-bind via mio (which uses netstack).
             let addr = self.inner.local_addr()?;
             let addr = addr.as_socket().ok_or_else(|| {
                 io::Error::new(io::ErrorKind::InvalidInput, "invalid address")
